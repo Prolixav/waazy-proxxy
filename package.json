@@ -1,1 +1,13 @@
-/project proxy/index.html /project proxy/package.json /project proxy/server.js /project proxy/sever.js
+{
+  "name": "waazy-proxy",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0"
+  }
+}
