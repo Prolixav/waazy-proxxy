@@ -1,1 +1,52 @@
-/project proxy/index.html /project proxy/package.json /project proxy/server.js /project proxy/sever.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waazy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #12101a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .header { background: #1b1826; padding: 14px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.4); z-index: 10; }
+        .logo { font-size: 28px; font-weight: 900; background: linear-gradient(135deg, #ff6ec7, #7873f5, #4adede); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-right: 10px; letter-spacing: 1px; }
+        .search-bar { flex: 1; display: flex; gap: 8px; }
+        .search-bar input { flex: 1; padding: 10px 16px; border: none; border-radius: 30px; background: #2a2538; color: #eee; font-size: 15px; outline: none; }
+        .search-bar input::placeholder { color: #888; }
+        .search-bar button { padding: 10px 22px; border: none; border-radius: 30px; background: linear-gradient(135deg, #7873f5, #4adede); color: #fff; font-weight: 700; cursor: pointer; }
+        .search-bar button:hover { filter: brightness(1.1); }
+        
+        .frame-container { flex: 1; width: 100%; height: 100%; background: white; }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
+    </style>
+    <script>
+        function launchProxy() {
+            const inputUrl = document.getElementById('url-input').value;
+            if (!inputUrl) return alert('Please enter a URL first!');
+            
+            let cleanUrl = inputUrl.trim();
+            if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+                cleanUrl = 'https://' + cleanUrl;
+            }
+            
+            document.getElementById('proxy-view').src = '/proxy?url=' + encodeURIComponent(cleanUrl);
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') { launchProxy(); }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">waazy</div>
+        <div class="search-bar">
+            <input type="text" id="url-input" onkeypress="checkEnter(event)" placeholder="Enter a URL (e.g., wikipedia.org)...">
+            <button onclick="launchProxy()">Search</button>
+        </div>
+    </div>
+
+    <div class="frame-container">
+        <iframe id="proxy-view" src="about:blank"></iframe>
+    </div>
+</body>
+</html>
