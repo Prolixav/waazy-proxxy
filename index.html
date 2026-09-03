@@ -5,47 +5,39 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>wavy</title>
     
-    <link rel="preconnect" href="https://googleapis.com"/>
-    <link rel="preconnect" href="https://gstatic.com" crossorigin/>
-    <link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+    <!-- Fixed font paths so the website design actually displays -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: #0b0914; color: #f3f1f9; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        body { background: #0c0a17; color: #f1eff9; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         
-        /* Premium Core Navigation Banner */
-        .header { background: #131122; padding: 16px 24px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 30px rgba(0,0,0,0.6); z-index: 10; border-bottom: 1px solid #1f1b36; }
+        .header { background: #131124; padding: 16px 24px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 30px rgba(0,0,0,0.6); z-index: 10; border-bottom: 1px solid #201b3a; }
         .logo { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #ff6ec7, #7873f5, #4adede); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px; cursor: pointer; }
         
-        .search-bar { flex: 1; display: flex; background: #1a172e; border: 1px solid #282447; border-radius: 30px; padding: 4px 6px; align-items: center; transition: 0.2s ease; }
-        .search-bar:focus-within { border-color: #7873f5; box-shadow: 0 0 15px rgba(120,115,245,0.25); }
+        .search-bar { flex: 1; display: flex; background: #1a1730; border: 1px solid #2b264d; border-radius: 30px; padding: 4px 6px; align-items: center; }
         .search-bar input { flex: 1; padding: 10px 16px; border: none; background: transparent; color: #fff; font-size: 15px; outline: none; }
         .search-bar input::placeholder { color: #645f8a; }
-        .search-bar button { padding: 10px 26px; border: none; border-radius: 30px; background: linear-gradient(135deg, #7873f5, #4adede); color: #fff; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .search-bar button:hover { filter: brightness(1.15); transform: scale(1.02); }
+        .search-bar button { padding: 10px 26px; border: none; border-radius: 30px; background: linear-gradient(135deg, #7873f5, #4adede); color: #fff; font-weight: 700; cursor: pointer; }
         
-        /* Interactive Application Workspace Grid */
         .workspace { flex: 1; display: flex; flex-direction: column; padding: 60px 40px; overflow-y: auto; align-items: center; gap: 48px; }
         .grid-wrapper { width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 20px; }
-        .grid-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #585380; border-bottom: 1px solid #1a172e; padding-bottom: 8px; }
+        .grid-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #5d578c; border-bottom: 1px solid #1a1730; padding-bottom: 8px; }
         
         .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
-        .app-card { background: #131122; border: 1px solid #1c1933; border-radius: 20px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
-        .app-card::after { content: ''; position: absolute; inset: 0; border-radius: 20px; border: 1px solid transparent; background: linear-gradient(135deg, #ff6ec7, #7873f5) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; opacity: 0; transition: 0.3s; }
-        .app-card:hover { transform: translateY(-6px); background: #17142a; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
-        .app-card:hover::after { opacity: 1; }
-        
-        .app-icon { font-size: 42px; background: #1a172e; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 50px; border: 1px solid #231f42; }
+        .app-card { background: #131124; border: 1px solid #1d1936; border-radius: 20px; padding: 24px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .app-card:hover { transform: translateY(-4px); background: #191630; }
+        .app-icon { font-size: 42px; margin-bottom: 8px; }
         .app-name { font-weight: 700; font-size: 16px; color: #fff; }
-        .app-desc { font-size: 12px; color: #645f8a; line-height: 1.5; }
+        .app-desc { font-size: 12px; color: #696394; line-height: 1.5; }
         
-        /* Embedded Frame Container */
         .viewport-panel { flex: 1; width: 100%; height: 100%; background: #fff; display: none; }
         iframe { width: 100%; height: 100%; border: none; background: #fff; }
     </style>
     
     <script>
-        // Core tracking & injection protocols completely neutralized (Ads Removed)
         function startProxySession(target) {
             let address = target || document.getElementById('target-input').value;
             if (!address) return;
@@ -57,10 +49,13 @@
             
             document.getElementById('main-dashboard').style.display = 'none';
             document.getElementById('session-viewport').style.display = 'block';
+            
+            // This safely links up to your active Render server backend rules
             document.getElementById('frame-engine').src = '/proxy?url=' + encodeURIComponent(targetUrl);
         }
 
         function triggerCheck(e) { if (e.key === 'Enter') startProxySession(); }
+        
         function returnToDashboard() {
             document.getElementById('session-viewport').style.display = 'none';
             document.getElementById('main-dashboard').style.display = 'flex';
@@ -71,45 +66,42 @@
 </head>
 <body>
 
-    <!-- Controlled Layout Banner -->
     <div class="header">
         <div class="logo" onclick="returnToDashboard()">wavy</div>
         <div class="search-bar">
-            <input type="text" id="target-input" onkeypress="triggerCheck(event)" placeholder="Search the web securely without tracking...">
+            <input type="text" id="target-input" onkeypress="triggerCheck(event)" placeholder="Search anonymously without trackers...">
             <button onclick="startProxySession()">Explore</button>
         </div>
     </div>
 
-    <!-- Active Premium Navigation Dashboard -->
     <div class="workspace" id="main-dashboard">
         <div class="grid-wrapper">
-            <div class="grid-title">Applications & Networks</div>
+            <div class="grid-title">Proxy Routing Gateways</div>
             <div class="app-grid">
                 <div class="app-card" onclick="startProxySession('https://poki.com')">
                     <div class="app-icon">🎮</div>
-                    <div class="app-name">Poki Architecture</div>
-                    <div class="app-desc">Access localized, full-speed web games.</div>
+                    <div class="app-name">Poki Node</div>
+                    <div class="app-desc">Bypass filters to run unblocked casual games.</div>
                 </div>
                 <div class="app-card" onclick="startProxySession('https://crazygames.com')">
                     <div class="app-icon">⚡</div>
-                    <div class="app-name">CrazyGames Network</div>
-                    <div class="app-desc">High-performance arcade and processing engines.</div>
+                    <div class="app-name">CrazyGames Stream</div>
+                    <div class="app-desc">High performance core arcade layout.</div>
                 </div>
                 <div class="app-card" onclick="startProxySession('https://retrobowl.me')">
                     <div class="app-icon">🏈</div>
-                    <div class="app-name">Retro Bowl Mobile</div>
-                    <div class="app-desc">Pixelated management simulation compiler.</div>
+                    <div class="app-name">Retro Bowl Mirror</div>
+                    <div class="app-desc">Run unblocked football simulation scripts.</div>
                 </div>
                 <div class="app-card" onclick="startProxySession('https://discord.com')">
                     <div class="app-icon">💬</div>
-                    <div class="app-name">Discord Communications</div>
-                    <div class="app-desc">Bypass localized communication filters.</div>
+                    <div class="app-name">Discord Tunnel</div>
+                    <div class="app-desc">Encrypted communications shortcut container.</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Secured Isolated Proxy Viewport -->
     <div class="viewport-panel" id="session-viewport">
         <iframe id="frame-engine" src="about:blank"></iframe>
     </div>
